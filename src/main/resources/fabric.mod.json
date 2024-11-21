@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "interactivechat",
+	"version": "${version}",
+	"name": "Interactive Chat",
+	"description": "Adds interactive elements to chat",
+	"authors": [
+		"burung25"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/interactivechat/icon.png",
+	"environment": "server",
+	"entrypoints": {
+		"main": [
+			"website.interactivechat.amwp.InteractiveChat"
+		],
+		"client": [
+			"website.interactivechat.amwp.InteractiveChatClient"
+		]
+	},
+	"mixins": [
+		"interactivechat.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.9",
+		"minecraft": "~1.21.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
