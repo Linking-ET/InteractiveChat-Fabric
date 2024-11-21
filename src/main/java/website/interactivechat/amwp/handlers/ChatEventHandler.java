@@ -9,6 +9,7 @@ import website.interactivechat.amwp.handlers.chat.EnderChestChatHandler;
 import website.interactivechat.amwp.handlers.chat.InventoryChatHandler;
 import website.interactivechat.amwp.handlers.chat.ItemChatHandler;
 import website.interactivechat.amwp.handlers.chat.PlayerMentionHandler;
+import website.interactivechat.amwp.handlers.chat.PlayerNameHandler;
 
 public class ChatEventHandler {
     public static void registerEvents() {
@@ -24,37 +25,21 @@ public class ChatEventHandler {
                     return true;
                 }
 
-                Config config = Config.getInstance();
-
-                // Check for [item] keywords
-                for (String itemKeyword : config.getItemKeywords()) {
-                    if (msg.contains(itemKeyword)) {
-                        ItemChatHandler.handle(sender, msg);
-                        return false;
-                    }
+                // Check for special keywords first
+                if (msg.contains("[item]")) {
+                    ItemChatHandler.handle(sender, msg);
+                    return false;
+                } else if (msg.contains("[inv]")) {
+                    InventoryChatHandler.handle(sender, msg);
+                    return false;
+                } else if (msg.contains("[ender]")) {
+                    EnderChestChatHandler.handle(sender, msg);
+                    return false;
                 }
 
-                // Check for [inv] keywords
-                for (String invKeyword : config.getInventoryKeywords()) {
-                    if (msg.contains(invKeyword)) {
-                        InventoryChatHandler.handle(sender, msg);
-                        return false;
-                    }
-                }
-
-                // Check for [ender] keywords
-                for (String enderKeyword : config.getEnderChestKeywords()) {
-                    if (msg.contains(enderKeyword)) {
-                        EnderChestChatHandler.handle(sender, msg);
-                        return false;
-                    }
-                }
-
-                // Handle mentions
-                if (msg.contains("@")) {
-                    PlayerMentionHandler.handle(sender, msg);
-                }
-                return true;
+                // Handle interactive player names for regular messages
+                PlayerNameHandler.handle(sender, msg);
+                return false;
 
             } catch (Exception e) {
                 e.printStackTrace();
