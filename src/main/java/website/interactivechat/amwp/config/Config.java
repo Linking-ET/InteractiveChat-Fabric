@@ -19,6 +19,11 @@ public class Config {
     private List<String> itemKeywords = Arrays.asList("[item]");
     private List<String> inventoryKeywords = Arrays.asList("[inv]");
     private List<String> enderChestKeywords = Arrays.asList("[ender]");
+    private String chatFormat = "{name} >> {message}";
+    private String nameFormat = "{prefix}{name}{suffix}";
+    private String nameColor = "yellow";
+    private String separatorColor = "gray";
+    private boolean enableLuckPerms = true;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Path CONFIG_DIR = FabricLoader.getInstance().getConfigDir();
@@ -110,5 +115,50 @@ public class Config {
 
     public List<String> getEnderChestKeywords() {
         return enderChestKeywords;
+    }
+
+    public String getChatFormat() {
+        return chatFormat;
+    }
+
+    public String getNameFormat() {
+        return nameFormat;
+    }
+
+    public String getNameColor() {
+        return nameColor;
+    }
+
+    public String getSeparatorColor() {
+        return separatorColor;
+    }
+
+    public void setChatFormat(String format) {
+        this.chatFormat = format;
+        saveConfig();
+    }
+
+    public void setNameFormat(String format) {
+        this.nameFormat = format;
+        saveConfig();
+    }
+
+    public void setNameColor(String color) {
+        this.nameColor = color;
+        saveConfig();
+    }
+
+    public void setSeparatorColor(String color) {
+        this.separatorColor = color;
+        saveConfig();
+    }
+
+    public boolean isEnableLuckPerms() {
+        return enableLuckPerms;
+    }
+
+    public void setEnableLuckPerms(boolean enable) {
+        this.enableLuckPerms = enable;
+        saveConfig();
     }
 } 
